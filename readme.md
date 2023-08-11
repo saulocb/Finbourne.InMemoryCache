@@ -23,9 +23,7 @@ var cache = Cache<string, int>.GetInstance(3);
 Cache class is applying Singleton Pattern so If you call GetInstance with different capacities, it will always return the first created instance with the first specified capacity. For example:
 
 ```
-var cache2 = Cache<string, int>.GetInstance(10);
-var capacity = cache.Capacity; // return 3
-
+var cache2 = Cache<string, int>.GetInstance(10); // this wil thow a InvalidOperationException "Cannot change the capacity of the singleton instance once configured."
 ```
 
 Once you have created an instance of the Cache class, you can add key-value pairs to the cache using the `Add` method. For example:

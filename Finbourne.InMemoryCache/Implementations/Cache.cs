@@ -22,6 +22,11 @@ namespace Finbourne.InMemoryCache.Implementations
         private readonly int capacity;
 
         /// <summary>
+        /// to keep track of the configured capacity of the cache.
+        /// </summary>
+        private static int? configuredCapacity = null;
+
+        /// <summary>
         /// Dictionary to hold the cache items and enable fast lookup.
         /// </summary>
         private readonly Dictionary<TKey, LinkedListNode<CacheItem>> cacheMap;
@@ -46,6 +51,8 @@ namespace Finbourne.InMemoryCache.Implementations
         /// </summary>
         private static readonly object instanceLock = new object();
 
+    
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Cache{TKey, TValue}"/> class with the specified capacity.
         /// </summary>
@@ -64,12 +71,18 @@ namespace Finbourne.InMemoryCache.Implementations
         /// <returns>returns the instance of the cache</returns> 
         public static Cache<TKey, TValue> GetInstance(int capacity)
         {
+            if (instance != null && configuredCapacity != capacity)
+            {
+                throw new InvalidOperationException("Cannot change the capacity of the singleton instance once configured.");
+            }
+
             if (instance == null)
             {
                 lock (instanceLock)
                 {
                     if (instance == null)
                     {
+                        configuredCapacity = capacity; // Set the capacity for the first time
                         instance = new Cache<TKey, TValue>(capacity);
                     }
                 }

@@ -54,8 +54,8 @@ namespace Finbourne.InMemoryCache.Tests
         [Fact]
         public void TestSingletonBehavior()
         {
-            var cache1 = Cache<string, int>.GetInstance(5);
-            var cache2 = Cache<string, int>.GetInstance(5);
+            var cache1 = Cache<string, int>.GetInstance(100);
+            var cache2 = Cache<string, int>.GetInstance(100);
 
             Assert.Equal(cache1, cache2);
         }
