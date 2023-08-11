@@ -13,7 +13,7 @@ The Cache class implements a Least Recently Used (LRU) cache with a specified ca
 
 ### Usage
 
-To use the Cache class, you need to Get an instance of the class with the desired capacity. For example:
+To use the Cache class, you need to Get an instance of the class and you must set the desired capacity only at the first time. For example:
 
 ```
 var cache = Cache<string, int>.GetInstance(3);
@@ -24,7 +24,7 @@ Cache class is applying Singleton Pattern so If you call GetInstance with differ
 
 ```
 var cache2 = Cache<string, int>.GetInstance(10);
-// this wil thow a InvalidOperationException "Cannot change the capacity of the singleton instance once configured."
+var capacity = cache.Capacity; // return 3
 ```
 
 Once you have created an instance of the Cache class, you can add key-value pairs to the cache using the `Add` method. For example:

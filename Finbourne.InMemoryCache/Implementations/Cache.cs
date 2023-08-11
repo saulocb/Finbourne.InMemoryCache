@@ -69,21 +69,34 @@ namespace Finbourne.InMemoryCache.Implementations
         /// </summary>
         /// <param name="capacity">capacity of the cache</param>
         /// <returns>returns the instance of the cache</returns> 
-        public static Cache<TKey, TValue> GetInstance(int capacity)
+        public static Cache<TKey, TValue> GetInstance(int capacity = -1)
         {
-            if (instance != null && configuredCapacity != capacity)
+            // Check if a new capacity is being provided for the first time
+            if (configuredCapacity == null && capacity != -1)
             {
-                throw new InvalidOperationException("Cannot change the capacity of the singleton instance once configured.");
+                lock (instanceLock)
+                {
+                    // Double-check inside the lock to ensure that only the first capacity value is set
+                    if (configuredCapacity == null)
+                    {
+                        configuredCapacity = capacity;
+                    }
+                }
             }
 
+            // Proceed with the singleton initialization
             if (instance == null)
             {
                 lock (instanceLock)
                 {
                     if (instance == null)
                     {
-                        configuredCapacity = capacity; // Set the capacity for the first time
-                        instance = new Cache<TKey, TValue>(capacity);
+                        if (configuredCapacity == null)
+                        {
+                            throw new InvalidOperationException("Capacity must be provided when creating the singleton instance for the first time.");
+                        }
+
+                        instance = new Cache<TKey, TValue>(configuredCapacity.Value);
                     }
                 }
             }

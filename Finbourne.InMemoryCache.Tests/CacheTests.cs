@@ -1,6 +1,8 @@
 using Finbourne.InMemoryCache.Implementations;
+using Finbourne.InMemoryCache.Interfaces;
 using System;
 using System.Collections.Concurrent;
+using System.Reflection;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -86,18 +88,22 @@ namespace Finbourne.InMemoryCache.Tests
         }
 
         [Fact]
-        public void GetInstance_WithChangedCapacity_ThrowsException()
-        {
-            Assert.Throws<InvalidOperationException>(() => Cache<string, int>.GetInstance(200));
-        }
-
-        [Fact]
         public void GetInstance_WithValidCapacity_CreatesInstance()
         {
             var cache = Cache<string, int>.GetInstance(100); 
 
             Assert.NotNull(cache);
             Assert.Equal(100, cache.Capacity); 
+        }
+
+        [Fact]
+        public void GetInstance_WithoutSpecifyingCapacity_AfterInstanceCreated_ReturnsInstance()
+        {
+            Cache<string, int>.GetInstance(100); 
+            var cache = Cache<string, int>.GetInstance(); // Get the instance without specifying the capacity
+
+            Assert.NotNull(cache);
+            Assert.Equal(100, cache.Capacity);
         }
     }
 }

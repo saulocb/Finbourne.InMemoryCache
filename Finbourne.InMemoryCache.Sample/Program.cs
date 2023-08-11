@@ -10,7 +10,6 @@ namespace LRUCacheSample
             // Create an instance of Cache with a capacity of 3
             var cache = Cache<string, int>.GetInstance(3);
 
-
             // Subscribe to the ItemEvicted event
             cache.ItemEvicted += (key, value) =>
             {
