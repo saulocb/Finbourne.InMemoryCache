@@ -20,7 +20,7 @@ var cache = Cache<string, int>.GetInstance(3);
 ```
 ### Singleton Pattern
 
-Cache class is applying Singleton Pattern so If you call GetInstance with different capacities, it will always return the first created instance with the first specified capacity. For example:
+Cache class is applying Singleton Pattern so If you call GetInstance with different capacities, it will always use  the first created instance with the first specified capacity. For example:
 
 ```
 var cache2 = Cache<string, int>.GetInstance(10);
