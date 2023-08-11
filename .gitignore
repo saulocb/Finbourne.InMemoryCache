@@ -1,0 +1,35 @@
+# Ignore build directories
+[Bb]in/
+[Oo]bj/
+
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+
+# Ignore Visual Studio temporary files
+*.cache
+*.bak
+*.swp
+*~.nib
+
+# Ignore Resharper temporary files
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Ignore Rider temporary files
+.idea/
+
+# Ignore all log files
+*.log
+
+# Ignore package and other temporary files
+packages/
+*.pidb
+*.sln.docstates
+/.vs/Finbourne.InMemoryCache/FileContentIndex/3302b6a3-a9eb-49e5-b453-835e159dc9ed.vsidx
+/.vs/Finbourne.InMemoryCache/FileContentIndex/48cb68b4-9524-406c-815a-e4f578dc6dda.vsidx
+/.vs/Finbourne.InMemoryCache/v17/TestStore/0/003.testlog
+/.vs/Finbourne.InMemoryCache/v17/TestStore/0/testlog.manifest
+*.vsidx
+*.testlog
