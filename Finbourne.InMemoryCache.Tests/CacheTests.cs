@@ -84,6 +84,21 @@ namespace Finbourne.InMemoryCache.Tests
             // Verify that all of the items are in the cache
             Assert.Equal(capacity, _cache.Count); // The count should match the capacity, not the total number of additions
         }
+
+        [Fact]
+        public void GetInstance_WithChangedCapacity_ThrowsException()
+        {
+            Assert.Throws<InvalidOperationException>(() => Cache<string, int>.GetInstance(200));
+        }
+
+        [Fact]
+        public void GetInstance_WithValidCapacity_CreatesInstance()
+        {
+            var cache = Cache<string, int>.GetInstance(100); 
+
+            Assert.NotNull(cache);
+            Assert.Equal(100, cache.Capacity); 
+        }
     }
 }
 
